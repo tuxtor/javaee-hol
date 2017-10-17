@@ -1,0 +1,40 @@
+<header ng-switch on="$location.path().indexOf('/Tasks/new') > -1">
+    <h3 ng-switch-when="true">Create a new Task</h3>
+    <h3 ng-switch-when="false">View or edit Task</h3>
+</header>
+<form id="TaskForm" name="TaskForm" class="form-horizontal" role="form">
+    
+
+    <div class="form-group" ng-class="{'has-error': TaskForm.taskName.$invalid}">
+        <label for="taskName" class="col-sm-2 control-label">Task Name</label>
+        <div id="taskNameControls" class="col-sm-10">
+            <input id="taskName" name="taskName" type="text" required class="form-control" ng-model="task.taskName" placeholder="Enter the Task Task Name"></input>
+            <span class="help-block error" ng-show="TaskForm.taskName.$error.required">required</span> 
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': TaskForm.description.$invalid}">
+        <label for="description" class="col-sm-2 control-label">Description</label>
+        <div id="descriptionControls" class="col-sm-10">
+            <input id="description" name="description" type="text" required ng-maxlength="2000" class="form-control" ng-model="task.description" placeholder="Enter the Task Description"></input>
+            <span class="help-block error" ng-show="TaskForm.description.$error.required">required</span> 
+            <span class="help-block error" ng-show="TaskForm.description.$error.maxlength">maximum length is 2000</span>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': TaskForm.finished.$invalid}">
+        <label for="finished" class="col-sm-2 control-label">Finished</label>
+        <div id="finishedControls" class="col-sm-10">
+            <input id="finished" name="finished" type="checkbox" class="checkbox" ng-model="task.finished" placeholder="Enter the Task Finished"></input>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button id="saveTask" name="saveTask" class="btn btn-primary" ng-disabled="isClean() || TaskForm.$invalid" ng-click="save()"><span class="glyphicon glyphicon-ok-sign"></span> Save</button>
+            <button id="cancel" name="cancel" class="btn btn-default" ng-click="cancel()"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
+            <button id="deleteTask" name="deleteTask" class="btn btn-danger" ng-show="task.id" ng-click="remove()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+        </div>
+    </div>
+</form>
